@@ -1,0 +1,34 @@
+# test-tech
+
+//REST TO DO
+
+1 - Comprendre pourquoi la page MovieDetail ne se display pas
+2 - Réussir à récuper la data de l'input la muté vers le state
+3 - Récupérer la data de l'input, l'intégrer en params pour le call APi
+
+
+
+
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
