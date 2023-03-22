@@ -2,6 +2,8 @@ import { createStore } from 'vuex'
 // import moviesModule from './modules/moviesModule/index.js'
 import generateId from "../utils/id.js"
 import  {search, getByTitle}  from "../utils/clients.js"
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 export default createStore({
   strict:true,
@@ -50,9 +52,16 @@ export default createStore({
         .then(res => {
           commit('SET_LIBRARY', res)})
       },
+
+      // ----
       addToWishlist({ commit }, movie) {
       commit('addMovieToWishlist', movie);
-      }
+      },
+
+      // ---
+       sendCommentToFirebase({ commit }, formData) {
+      commit('send_comment', formData);
+    }
     },
         mutations: {
           // Réponse du Call Api
@@ -69,6 +78,11 @@ export default createStore({
           addMovieToWishlist(state,movie) {
               state.wishlist.push(movie)
               console.log(state.wishlist)
-               }
+               },
+
+          send_comment(_, formData) {
+    // Send the form data to Firebase using the Firebase SDK
+    firebase.firestore().collection('users').add(formData);
+  }
   }
 })

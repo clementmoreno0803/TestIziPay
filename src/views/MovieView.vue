@@ -14,7 +14,6 @@
       </movie-infos>
       </li>
     </ul>
-    <!-- <h3>No movie with this name..Try again</h3> -->
   </base-card>
 </div>
 </template>
@@ -37,11 +36,7 @@ export default {
   },
 
   mounted() {
-    // this.$store.dispatch('getLibrary');
     this.$store.dispatch('getLibrary')
-    // .then(() => {
-    //   this.$store.dispatch('fetchMoreDetails')
-    // })
   }
 
 }
