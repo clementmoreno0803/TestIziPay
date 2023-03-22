@@ -1,7 +1,7 @@
 <template>
 <base-card>
   <h2>
-    Try to find a movie..
+    Tapez le nom d'un film..
   </h2>
     <form @submit.prevent="submitForm">
       <input type="text" v-model="formData">

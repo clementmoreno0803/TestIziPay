@@ -80,7 +80,6 @@ export default createStore({
           axios.get('https://izipay-3f2a9-default-rtdb.firebaseio.com/comment.json')
       .then((response) => {
           commit('set_messages', response.data);
-          console.log(response.data)
         })
       .catch((error) => {
         console.error(error);
@@ -108,7 +107,8 @@ export default createStore({
           },
 
           set_messages(state, comments){
-             state.comments = comments;
+            state.comments = comments;
+            console.log(comments)
           },
 
           addMovieToWishlist(state,movie) {

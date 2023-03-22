@@ -3,10 +3,12 @@
   <div class="card">
     <img :src="poster" alt="">
     <h3>{{title}}</h3>
+    <div class="description">
     <span>{{year}}</span>
     <base-button :class="mode">
       <span>{{type}}</span>
     </base-button>
+    </div>
   </div>
 </li>
 </template>
@@ -20,7 +22,11 @@ props: ['id','poster','title','year','mode','type']
 <style scoped>
 .card{
   width: 100%;
-  padding: 30px;
   border: 1px solid black;
+}
+.description{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>
