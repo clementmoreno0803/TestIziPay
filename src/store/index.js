@@ -1,9 +1,8 @@
 import { createStore } from 'vuex'
 // import moviesModule from './modules/moviesModule/index.js'
 import generateId from "../utils/id.js"
-import  {search, getByTitle}  from "../utils/clients.js"
-import firebase from 'firebase/app';
-import 'firebase/firestore';
+import  {firebaseUrl, search, getByTitle}  from "../utils/clients.js"
+import axios from 'axios'
 
 export default createStore({
   strict:true,
@@ -11,6 +10,7 @@ export default createStore({
       formData: {},
       library: [],
       comment: '',
+      comments: [],
       wishlist: [],
   },
   getters: {
@@ -29,6 +29,11 @@ export default createStore({
     // Comment trigger le bon pour l'ajouter dans le tableau des wishList ensuite ??
     getWishlist(state) {
       return state.wishlist;
+    },
+    //
+    //
+    displayComments(state){
+      return state.comments
     }
   },
   actions: {
@@ -53,15 +58,35 @@ export default createStore({
           commit('SET_LIBRARY', res)})
       },
 
+      // ---
+      // POST request pour envoyer les commentaires en DB
+
+       async sendComment({ commit }, data) {
+        try {
+        const response = await axios.post('https://izipay-3f2a9-default-rtdb.firebaseio.com/comment.json', data);
+        console.log(firebaseUrl)
+        commit('send_post_request', response.data);
+        } catch (error) {
+          console.log(error);
+        }
+      },
+
+      // ----
+      // Récupérer les commentaire depuis DB
+
+      getComments({commit}) {
+    axios.get('https://your-firebase-project.firebaseio.com/comment.json')
+      .then((response) => {
+        commit('setMessages', response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  },
       // ----
       addToWishlist({ commit }, movie) {
       commit('addMovieToWishlist', movie);
       },
-
-      // ---
-       sendCommentToFirebase({ commit }, formData) {
-      commit('send_comment', formData);
-    }
     },
         mutations: {
           // Réponse du Call Api
@@ -75,14 +100,19 @@ export default createStore({
             state.formData = formData
           },
 
+
+          send_post_request(state, data) {
+            state.comment = data;
+          },
+
+          setMessages(state, data){
+            state.comments.push(data)
+          },
+
           addMovieToWishlist(state,movie) {
               state.wishlist.push(movie)
               console.log(state.wishlist)
                },
 
-          send_comment(_, formData) {
-    // Send the form data to Firebase using the Firebase SDK
-    firebase.firestore().collection('users').add(formData);
-  }
   }
 })

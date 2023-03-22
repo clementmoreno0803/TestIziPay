@@ -28,16 +28,6 @@ export default {
       return this.$store.getters.getWishlist
     }
   },
-  methods: {
-    typeStyle(){
-      if(this.list.type == 'series'){
-        return this.mode == 'series'
-      }
-      else{
-        return this.mode == 'movies'
-      }
-    }
-  }
 }
 </script>
 

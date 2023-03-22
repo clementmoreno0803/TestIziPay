@@ -5,7 +5,10 @@
       <h3>{{title}}</h3>
       <span>{{runtime}}</span>
       <span>{{imdbRating}}</span>
+      <div class="buttons">
+    <comment-form></comment-form>
     <button v-on:click="handleAddToWishlist()">Voir plus tard</button>
+      </div>
       </div>
       <span>{{plot}}</span>
   </div>
@@ -13,9 +16,12 @@
 </template>
 
 <script>
-import {
-} from 'vuex'
+import commentForm from '../comments/commentForm.vue'
+
 export default {
+  components:{
+    commentForm
+  },
   props: {
     title: {
       type: String,
@@ -62,6 +68,9 @@ export default {
       this.$store.dispatch('addToWishlist', this.movie);
     }
   },
+  mounted(){
+    this.$store.dispatch('fetchMessages');
+  }
 }
 </script>
 
