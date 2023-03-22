@@ -23,6 +23,7 @@ props: ['id','poster','title','year','mode','type']
 .card{
   width: 100%;
   border: 1px solid black;
+  margin-bottom: 50px;
 }
 .description{
   display: flex;
