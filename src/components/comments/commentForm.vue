@@ -1,5 +1,5 @@
 <template>
-<form @submit.prevent="submitComment">
+<form @submit.prevent="submitComment" class="formulaire">
   <input type="text" v-model="comment">
   <button type="submit">Submit</button>
 </form>
@@ -20,12 +20,14 @@ export default {
         commentaire: this.comment,
       }
       this.sendComment(data)
-    console.log(data)
+      this.comment= ''
     },
   }
 }
 </script>
 
-<style>
-
+<style scoped>
+.formulaire{
+  padding-bottom: 30px;
+}
 </style>

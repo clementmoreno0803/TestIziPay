@@ -1,16 +1,21 @@
 <template>
 <li>
   <div :style="backgroundImageStyle">
-      <div class="sub-info">
-      <h3>{{title}}</h3>
+      <div class="container">
+        <div class="titre">
+          <h3>{{title}}</h3>
+          <button v-on:click="handleAddToWishlist()">Voir plus tard</button>
+        </div>
+      <div class="infos">
       <span>{{runtime}}</span>
-      <span>{{imdbRating}}</span>
+      <span>{{imdbRating}}/10</span>
+      </div>
+      <span class="description">{{plot}}</span>
+      </div>
       <div class="buttons">
-    <comment-form></comment-form>
-    <button v-on:click="handleAddToWishlist()">Voir plus tard</button>
+        <h4>Qu'avez vous pensez de ce film: </h4>
+        <comment-form></comment-form>
       </div>
-      </div>
-      <span>{{plot}}</span>
   </div>
 </li>
 </template>
@@ -58,7 +63,7 @@ export default {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'flex-end',
-        boxShadow: '3px -86px 400px 0px rgba(0,0,0,1) inset'
+        boxShadow: '3px -86px 400px 0px rgba(0,0,0,1) inset',
       }
     }
   },
@@ -67,9 +72,6 @@ export default {
     console.log(this.movie)
       this.$store.dispatch('addToWishlist', this.movie);
     }
-  },
-  mounted(){
-    this.$store.dispatch('fetchMessages');
   }
 }
 </script>
@@ -89,13 +91,42 @@ h3 {
 
 h3,
 h4 {
+  font-size: 1rem;
   margin: 0.5rem 0;
 }
 
 div {
   margin: 0;
+
 }
 
+.container{
+  display: flex;
+  padding: 0 50px;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.titre{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+.description{
+  margin: 0;
+    padding: 0;
+    text-align: left;
+    font-size: 0.8rem;
+}
+.infos{
+    width: calc(100% - 30px);
+    display: flex;
+    justify-content: space-between;
+}
+
+span {
+  font-weight: 600;
+}
 .actions {
   display: flex;
   justify-content: flex-end;

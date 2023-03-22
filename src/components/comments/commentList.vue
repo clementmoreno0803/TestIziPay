@@ -1,14 +1,19 @@
 <template>
-
+  <li>
+  {{comment}}
+  </li>
 </template>
 
 <script>
 
 export default {
-computed:{}
+props: ['comment'],
 }
 </script>
 
 <style>
+li{
+  color: white;
+}
 
 </style>

@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 // import moviesModule from './modules/moviesModule/index.js'
 import generateId from "../utils/id.js"
-import  {firebaseUrl, search, getByTitle}  from "../utils/clients.js"
+import  { search, getByTitle}  from "../utils/clients.js"
 import axios from 'axios'
 
 export default createStore({
@@ -64,21 +64,24 @@ export default createStore({
        async sendComment({ commit }, data) {
         try {
         const response = await axios.post('https://izipay-3f2a9-default-rtdb.firebaseio.com/comment.json', data);
-        console.log(firebaseUrl)
+        console.log(response.data)
         commit('send_post_request', response.data);
+        alert('Merci d\'avoir donner votre avis sur ce film' )
         } catch (error) {
           console.log(error);
+          alert('Une erreur est survenue lors de votre saisie, veuillez retenter plus tard' )
         }
       },
 
       // ----
       // Récupérer les commentaire depuis DB
 
-      getComments({commit}) {
-    axios.get('https://your-firebase-project.firebaseio.com/comment.json')
+      async getComments({commit}) {
+          axios.get('https://izipay-3f2a9-default-rtdb.firebaseio.com/comment.json')
       .then((response) => {
-        commit('setMessages', response.data);
-      })
+          commit('set_messages', response.data);
+          console.log(response.data)
+        })
       .catch((error) => {
         console.error(error);
       });
@@ -100,19 +103,16 @@ export default createStore({
             state.formData = formData
           },
 
-
           send_post_request(state, data) {
             state.comment = data;
           },
 
-          setMessages(state, data){
-            state.comments.push(data)
+          set_messages(state, comments){
+             state.comments = comments;
           },
 
           addMovieToWishlist(state,movie) {
               state.wishlist.push(movie)
-              console.log(state.wishlist)
-               },
-
+          },
   }
 })
